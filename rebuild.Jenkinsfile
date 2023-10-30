@@ -25,7 +25,7 @@ pipeline {
                             def preBuild = job.getBuild(params.REBUILD_NUMBER)
                             def envmap = preBuild.getEnvVars()
                             
-                            }
+                            
                         }
                     }
                     
