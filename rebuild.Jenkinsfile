@@ -39,7 +39,7 @@ pipeline {
                             //    preBuild = job.getBuild(envmap['REBUILD_NUMBER'])
                             //    envmap = preBuild.getEnvironment()
                             //    env[dynamicvar[i]] = envmap [dynamicvar[i]]
-                            }
+                            //}
                         }
                     }
                     for(int i = 0;i<dynamicvar.size;i++) {
