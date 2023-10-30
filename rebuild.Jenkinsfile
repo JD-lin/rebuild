@@ -21,7 +21,7 @@ pipeline {
                     if (params.REBUILD_NUMBER){
                         def jobName = currentBuild.rawBuild.project.getName()
                         def job = Jenkins.instance.getItem(jobName)
-                        for(int i = 0;i<dynamicvar.size;i++) {
+                        for(int i = 0;i<4;i++) {
                             def preBuild = job.getBuild(params.REBUILD_NUMBER)
                             def envmap = preBuild.getEnvVars()
                             
