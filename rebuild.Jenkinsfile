@@ -17,19 +17,35 @@ pipeline {
         stage('start') {
             steps {
                 script{
-                    //dynamicvar = ['MARKER','TESTCASE','PYTEST_OPTS','WORKDIR']
+                    dynamicvar = ['MARKER','TESTCASE','PYTEST_OPTS','WORKDIR']
                     if (params.REBUILD_NUMBER){
                         def jobName = currentBuild.rawBuild.project.getName()
                         def job = Jenkins.instance.getItem(jobName)
                         for(int i = 0;i<4;i++) {
                             def preBuild = job.getBuild(params.REBUILD_NUMBER)
                             def envmap = preBuild.getEnvVars()
-                            
-                            
+                            env[dynamicvar[i]] = envmap [dynamicvar[i]]
+                            while (envmap[dynamicvar[i]]=='' && envmap['REBUILD_NUMBER'] != ''){
+                                preBuild = job.getBuild(envmap['REBUILD_NUMBER'])
+                                envmap = preBuild.getEnvironment()
+                                env[dynamicvar[i]] = envmap [dynamicvar[i]]
+                            }
                         }
                     }
-                    
-                    
+                    for(int i = 0;i<dynamicvar.size;i++) {
+                        if (params[dynamicvar[i]]!=''){
+                            env[dynamicvar[i]] = params[dynamicvar[i]]
+                        }
+                    }
+                    println "NODE = ${env.NODE}"
+                    println "ENV = ${env.ENV}"
+                    println "MARKER = ${env.MARKER}"
+                    println "TEST_TYPE = ${env.TEST_TYPE}"
+                    println "TESTCASE = ${env.TESTCASE}"
+                    println "CLINGENV_URL = ${env.CLINGENV_URL}"
+                    println "PDB = ${env.PDB}"
+                    println "PYTEST_OPTS = ${env.PYTEST_OPTS}"
+                    println "WORKDIR = ${env.WORKDIR}"
                 }
             }
         }
