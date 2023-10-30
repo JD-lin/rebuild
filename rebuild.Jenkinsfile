@@ -18,9 +18,9 @@ pipeline {
         stage('start') {
             steps {
                 script{
-		    def signature = 'new groovy.json.JsonSlurperClassic'
-		    org.jenkinsci.plugins.scriptsecurity.scripts.ScriptApproval.get().approveSignature(signature)	
-		    print("Github")
+		import org.jenkinsci.plugins.scriptsecurity.scripts.*	    
+		toApprove = ScriptApproval.get().getPendingScripts().collect()
+		toApprove.each {pending -> ScriptApproval.get().approveScript(pending.getHash())}
                     dynamicvar = ['MARKER','TESTCASE','PYTEST_OPTS','WORKDIR']
                     if (params.REBUILD_NUMBER){
                         //def jobName = currentBuild.rawBuild.project.getName()
