@@ -32,7 +32,7 @@ pipeline {
                             }
                         }
                     }
-                    for(int i = 0;i<dynamicvar.size;i++) {
+                    for(int i = 0;i<4;i++) {
                         if (params[dynamicvar[i]]!=''){
                             env[dynamicvar[i]] = params[dynamicvar[i]]
                         }
