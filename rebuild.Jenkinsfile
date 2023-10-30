@@ -18,6 +18,8 @@ pipeline {
         stage('start') {
             steps {
                 script{
+			def scriptApproval = org.jenkinsci.plugins.scriptsecurity.scripts.ScriptApproval.get()
+
 			String[] signs = [
 			    "method org.jenkinsci.plugins.workflow.steps.FlowInterruptedException getCauses",
 			    "method org.jenkinsci.plugins.workflow.support.steps.input.Rejection getUser"
@@ -26,6 +28,8 @@ pipeline {
 			for( String sign : signs ) {
 			    scriptApproval.approveSignature(sign)
 			}
+			
+			scriptApproval.save()
 		    print("Github")
                     dynamicvar = ['MARKER','TESTCASE','PYTEST_OPTS','WORKDIR']
                     if (params.REBUILD_NUMBER){
