@@ -23,7 +23,7 @@ pipeline {
 		toApprove.each {pending -> ScriptApproval.get().approveScript(pending.getHash())}
                     dynamicvar = ['MARKER','TESTCASE','PYTEST_OPTS','WORKDIR']
                     if (params.REBUILD_NUMBER){
-                        //def jobName = currentBuild.rawBuild.project.getName()
+                        def jobName = currentBuild.rawBuild.project.getName()
                         //def job = Jenkins.instance.getItem(jobName)
                         //for(int i = 0;i<dynamicvar.size;i++) {
                             //def preBuild = job.getBuild(params.REBUILD_NUMBER)
