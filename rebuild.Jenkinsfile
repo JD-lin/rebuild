@@ -19,8 +19,7 @@ pipeline {
             steps {
                 script{
 		 			ScriptApproval scriptApproval = ScriptApproval.get()
-					String warning ='org.jenkinsci.plugins.workflow.support.steps.build.RunWrapper getRawBuild' 
-		    		scriptApproval.approveScript(warning)
+		    		scriptApproval.approveScript('org.jenkinsci.plugins.workflow.support.steps.build.RunWrapper getRawBuild' )
                     dynamicvar = ['MARKER','TESTCASE','PYTEST_OPTS','WORKDIR']
                     if (params.REBUILD_NUMBER){
                         def jobName = currentBuild.rawBuild.project.getName()
