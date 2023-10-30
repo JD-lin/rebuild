@@ -2,9 +2,9 @@ pipeline {
     agent any
     parameters {
 			booleanParam(name: 'PDB', defaultValue: 'false', description: 'true will be trigger pdb mode false will not')
-	    string(name: 'ENV', defaultValue: '', description: 'please input device name , like:dut21 or dut22')
+	    		string(name: 'ENV', defaultValue: '', description: 'please input device name , like:dut21 or dut22')
 			string(name: 'REBUILD_NUMBER',defaultValue: '', description:'please input the rebuild number')
-	    string(name: 'NODE', defaultValue: '10.17.0.2', description: 'jenkins node name you will execute script')
+	    		string(name: 'NODE', defaultValue: '10.17.0.2', description: 'jenkins node name you will execute script')
 			string(name: 'MARKER', defaultValue: '', description: 'please input mark type to select execute cases, empty mean execute all cases in test script')
 			string(name: 'TEST_TYPE', defaultValue: 'clx_diag_tests', description: 'please input test_type, like: protocol_tests or sdk_tests or kis_tests')
 			string(name: 'TESTCASE', defaultValue: '', description: 'input script relative path, like: l2_switching/lldp/test_01.py')
@@ -17,6 +17,7 @@ pipeline {
         stage('start') {
             steps {
                 script{
+		    print("Github")
                     dynamicvar = ['MARKER','TESTCASE','PYTEST_OPTS','WORKDIR']
                     if (params.REBUILD_NUMBER){
                         def jobName = currentBuild.rawBuild.project.getName()
