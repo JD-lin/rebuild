@@ -17,7 +17,7 @@ pipeline {
         stage('start') {
             steps {
                 script{
-                    dynamicvar = ['MARKER','TESTCASE','PYTEST_OPTS','WORKDIR']
+                    //dynamicvar = ['MARKER','TESTCASE','PYTEST_OPTS','WORKDIR']
                     if (params.REBUILD_NUMBER){
                         def jobName = currentBuild.rawBuild.project.getName()
                         def job = Jenkins.instance.getItem(jobName)
