@@ -34,7 +34,7 @@ pipeline {
                             //    envmap = preBuild.getEnvironment()
                             //    env[dynamicvar[i]] = envmap [dynamicvar[i]]
                             //}
-                        }
+                        //}
                     }
                     for(int i = 0;i<dynamicvar.size;i++) {
                         if (params[dynamicvar[i]]!=''){
