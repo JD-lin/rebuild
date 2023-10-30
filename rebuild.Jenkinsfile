@@ -37,15 +37,7 @@ pipeline {
                             env[dynamicvar[i]] = params[dynamicvar[i]]
                         }
                     }
-                    println "NODE = ${env.NODE}"
-                    println "ENV = ${env.ENV}"
-                    println "MARKER = ${env.MARKER}"
-                    println "TEST_TYPE = ${env.TEST_TYPE}"
-                    println "TESTCASE = ${env.TESTCASE}"
-                    println "CLINGENV_URL = ${env.CLINGENV_URL}"
-                    println "PDB = ${env.PDB}"
-                    println "PYTEST_OPTS = ${env.PYTEST_OPTS}"
-                    println "WORKDIR = ${env.WORKDIR}"
+                    
                 }
             }
         }
