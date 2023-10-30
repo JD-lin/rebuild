@@ -24,19 +24,11 @@ pipeline {
                         for(int i = 0;i<dynamicvar.size;i++) {
                             def preBuild = job.getBuild(params.REBUILD_NUMBER)
                             def envmap = preBuild.getEnvVars()
-                            env[dynamicvar[i]] = envmap [dynamicvar[i]]
-                            while (envmap[dynamicvar[i]]=='' && envmap['REBUILD_NUMBER'] != ''){
-                                preBuild = job.getBuild(envmap['REBUILD_NUMBER'])
-                                envmap = preBuild.getEnvironment()
-                                env[dynamicvar[i]] = envmap [dynamicvar[i]]
+                            
                             }
                         }
                     }
-                    for(int i = 0;i<dynamicvar.size;i++) {
-                        if (params[dynamicvar[i]]!=''){
-                            env[dynamicvar[i]] = params[dynamicvar[i]]
-                        }
-                    }
+                    
                     
                 }
             }
