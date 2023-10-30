@@ -1,4 +1,4 @@
-
+import org.jenkinsci.plugins.scriptsecurity.scripts.*	 
 pipeline {
     agent any
     parameters {
@@ -18,7 +18,7 @@ pipeline {
         stage('start') {
             steps {
                 script{
-		import org.jenkinsci.plugins.scriptsecurity.scripts.*	    
+		   
 		toApprove = ScriptApproval.get().getPendingScripts().collect()
 		toApprove.each {pending -> ScriptApproval.get().approveScript(pending.getHash())}
                     dynamicvar = ['MARKER','TESTCASE','PYTEST_OPTS','WORKDIR']
