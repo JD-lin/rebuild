@@ -50,13 +50,7 @@ pipeline {
                     println "PDB = ${env.PDB}"
                     println "PYTEST_OPTS = ${env.PYTEST_OPTS}"
                     println "WORKDIR = ${env.WORKDIR}"
-				    ScriptApproval scriptApproval = ScriptApproval.get() 
-				    def hashesToApprove = [] scriptApproval.pendingScripts.each { 	
-						if (it.script.contains("Some text")) { 	hashesToApprove.add(it.hash) } 
-						print("success")
-					}
-					for (String hash : hashesToApprove) { 	scriptApproval.approveScript(hash) }
-                }
+				  
             }
         }
     }
