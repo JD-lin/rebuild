@@ -50,7 +50,7 @@ pipeline {
                     println "PDB = ${env.PDB}"
                     println "PYTEST_OPTS = ${env.PYTEST_OPTS}"
                     println "WORKDIR = ${env.WORKDIR}"
-				  
+		}		  
             }
         }
     }
