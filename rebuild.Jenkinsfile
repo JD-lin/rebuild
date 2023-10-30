@@ -1,4 +1,4 @@
-import org.jenkinsci.plugins.scriptsecurity.scripts.*	 
+import org.jenkinsci.plugins.scriptsecurity.scripts.ScriptApproval 
 pipeline {
     agent any
     parameters {
@@ -18,23 +18,20 @@ pipeline {
         stage('start') {
             steps {
                 script{
-		   
-		toApprove = ScriptApproval.get().getPendingScripts().collect()
-		toApprove.each {pending -> ScriptApproval.get().approveScript(pending.getHash())}
                     dynamicvar = ['MARKER','TESTCASE','PYTEST_OPTS','WORKDIR']
                     if (params.REBUILD_NUMBER){
                         def jobName = currentBuild.rawBuild.project.getName()
-                        //def job = Jenkins.instance.getItem(jobName)
-                        //for(int i = 0;i<dynamicvar.size;i++) {
-                            //def preBuild = job.getBuild(params.REBUILD_NUMBER)
-                            //def envmap = preBuild.getEnvVars()
-                            //env[dynamicvar[i]] = envmap [dynamicvar[i]]
-                            //while (envmap[dynamicvar[i]]=='' && envmap['REBUILD_NUMBER'] != ''){
-                            //    preBuild = job.getBuild(envmap['REBUILD_NUMBER'])
-                            //    envmap = preBuild.getEnvironment()
-                            //    env[dynamicvar[i]] = envmap [dynamicvar[i]]
-                            //}
-                        //}
+                        def job = Jenkins.instance.getItem(jobName)
+                    	for(int i = 0;i<dynamicvar.size;i++) {
+                            def preBuild = job.getBuild(params.REBUILD_NUMBER)
+                            def envmap = preBuild.getEnvVars()
+                            env[dynamicvar[i]] = envmap [dynamicvar[i]]
+                            while (envmap[dynamicvar[i]]=='' && envmap['REBUILD_NUMBER'] != ''){
+                                preBuild = job.getBuild(envmap['REBUILD_NUMBER'])
+                                envmap = preBuild.getEnvironment()
+                                env[dynamicvar[i]] = envmap [dynamicvar[i]]
+                            }
+                        }
                     }
                     for(int i = 0;i<dynamicvar.size;i++) {
                         if (params[dynamicvar[i]]!=''){
@@ -50,6 +47,11 @@ pipeline {
                     println "PDB = ${env.PDB}"
                     println "PYTEST_OPTS = ${env.PYTEST_OPTS}"
                     println "WORKDIR = ${env.WORKDIR}"
+				    ScriptApproval scriptApproval = ScriptApproval.get() 
+				    def hashesToApprove = [] scriptApproval.pendingScripts.each { 	
+						if (it.script.contains("Some text")) { 	hashesToApprove.add(it.hash) } 
+					}
+					for (String hash : hashesToApprove) { 	scriptApproval.approveScript(hash) }
                 }
             }
         }
